@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="3d40fa50-180a-4153-8192-8914615c34d9" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:8416/CreditAssessment.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="CreditAssessment.disco" MetadataType="Disco" ID="c1c564f7-6c2d-4d4d-813a-536c875c7fb7" SourceId="1" SourceUrl="http://localhost:8416/CreditAssessment.svc?disco" />
+    <MetadataFile FileName="CreditAssessment.xsd" MetadataType="Schema" ID="0dd4ffa7-a163-4a4e-b1e0-a18873224117" SourceId="1" SourceUrl="http://localhost:8416/CreditAssessment.svc?xsd=xsd1" />
+    <MetadataFile FileName="CreditAssessment1.xsd" MetadataType="Schema" ID="eb1212ae-088e-4fa5-bca8-e0e0c82dd597" SourceId="1" SourceUrl="http://localhost:8416/CreditAssessment.svc?xsd=xsd0" />
+    <MetadataFile FileName="CreditAssessment.wsdl" MetadataType="Wsdl" ID="88369288-eaf6-419d-8e68-7af23b952a1b" SourceId="1" SourceUrl="http://localhost:8416/CreditAssessment.svc?wsdl" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
