@@ -3,6 +3,7 @@ using Rebus.Configuration;
 using Rebus.Transports.Msmq;
 using Rebus.MongoDb;
 using Trading.Messages;
+using Rebus.Logging;
 
 namespace Trading
 {
@@ -13,10 +14,13 @@ namespace Trading
             using (var adapter = new BuiltinContainerAdapter())
             {
                 Configure.With(adapter)
+                         .Logging(l => l.None())
                          .Transport(t => t.UseMsmqAndGetInputQueueNameFromAppConfig())
                          .Subscriptions(s => s.StoreInMongoDb("mongodb://localhost/warmcroc", "tradingSubs"))
                          .CreateBus()
                          .Start();
+
+                Console.WriteLine("----Trading----");
 
                 while (true)
                 {
@@ -38,7 +42,7 @@ namespace Trading
         {
             Console.Write("{0}> ", prompt);
             var text = Console.ReadLine();
-            return (T) Convert.ChangeType(text, typeof (T));
+            return (T)Convert.ChangeType(text, typeof(T));
         }
     }
 }

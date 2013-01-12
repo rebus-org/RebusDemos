@@ -5,6 +5,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trading", "Trading\Trading.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trading.Messages", "Trading.Messages\Trading.Messages.csproj", "{930658F6-A75A-4E14-BF41-E28176C9AAC8}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "front office", "front office", "{D5520363-9F21-41AB-BF02-0ECC1AC1504F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "back office", "back office", "{2ED6F6CC-02B9-4EFC-BDF4-5AC5322E4FE2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Billing", "Billing\Billing.csproj", "{44958E7C-ED57-44DE-99A1-017EB8B04052}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,8 +25,17 @@ Global
 		{930658F6-A75A-4E14-BF41-E28176C9AAC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{930658F6-A75A-4E14-BF41-E28176C9AAC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{930658F6-A75A-4E14-BF41-E28176C9AAC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44958E7C-ED57-44DE-99A1-017EB8B04052}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44958E7C-ED57-44DE-99A1-017EB8B04052}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44958E7C-ED57-44DE-99A1-017EB8B04052}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44958E7C-ED57-44DE-99A1-017EB8B04052}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{04A00F60-733F-421C-A30D-45E2F2132D35} = {D5520363-9F21-41AB-BF02-0ECC1AC1504F}
+		{930658F6-A75A-4E14-BF41-E28176C9AAC8} = {D5520363-9F21-41AB-BF02-0ECC1AC1504F}
+		{44958E7C-ED57-44DE-99A1-017EB8B04052} = {2ED6F6CC-02B9-4EFC-BDF4-5AC5322E4FE2}
 	EndGlobalSection
 EndGlobal
