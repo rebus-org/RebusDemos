@@ -1,8 +1,84 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trading", "Trading\Trading.csproj", "{04A00F60-733F-421C-A30D-45E2F2132D35}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trading.Messages", "Trading.Messages\Trading.Messages.csproj", "{930658F6-A75A-4E14-BF41-E28176C9AAC8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "front office", "front office", "{D5520363-9F21-41AB-BF02-0ECC1AC1504F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "back office", "back office", "{2ED6F6CC-02B9-4EFC-BDF4-5AC5322E4FE2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Billing", "Billing\Billing.csproj", "{44958E7C-ED57-44DE-99A1-017EB8B04052}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "middle office", "middle office", "{55E0F786-B7EB-4C79-A9CA-195E3E30BBE4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Confirmations", "Confirmations\Confirmations.csproj", "{A42335E5-B0E2-4700-9DEC-693A5C3130DB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "external", "external", "{FA3E217A-99F0-46A2-B454-92E46B9FBCF9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreditAssessment", "CreditAssessment\CreditAssessment.csproj", "{4DBA4D29-1936-4B1F-BA0E-D378F6C61389}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreditAssessment.Integration", "CreditAssessment.Integration\CreditAssessment.Integration.csproj", "{A00FA5AD-C404-423A-B666-3AE09758BD26}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4DBA4D29-1936-4B1F-BA0E-D378F6C61389} = {4DBA4D29-1936-4B1F-BA0E-D378F6C61389}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Confirmations.Messages", "Confirmations.Messages\Confirmations.Messages.csproj", "{6C4D3D37-1BB7-404E-A03D-F5F54DB2F591}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreditAssessment.Integration.Messages", "CreditAssessment.Integration.Messages\CreditAssessment.Integration.Messages.csproj", "{EB6A4AC4-0EC6-4BB7-9ECD-03A04044B4AE}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{04A00F60-733F-421C-A30D-45E2F2132D35}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04A00F60-733F-421C-A30D-45E2F2132D35}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04A00F60-733F-421C-A30D-45E2F2132D35}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04A00F60-733F-421C-A30D-45E2F2132D35}.Release|Any CPU.Build.0 = Release|Any CPU
+		{930658F6-A75A-4E14-BF41-E28176C9AAC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{930658F6-A75A-4E14-BF41-E28176C9AAC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{930658F6-A75A-4E14-BF41-E28176C9AAC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{930658F6-A75A-4E14-BF41-E28176C9AAC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44958E7C-ED57-44DE-99A1-017EB8B04052}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44958E7C-ED57-44DE-99A1-017EB8B04052}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44958E7C-ED57-44DE-99A1-017EB8B04052}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44958E7C-ED57-44DE-99A1-017EB8B04052}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A42335E5-B0E2-4700-9DEC-693A5C3130DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A42335E5-B0E2-4700-9DEC-693A5C3130DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A42335E5-B0E2-4700-9DEC-693A5C3130DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A42335E5-B0E2-4700-9DEC-693A5C3130DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DBA4D29-1936-4B1F-BA0E-D378F6C61389}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DBA4D29-1936-4B1F-BA0E-D378F6C61389}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DBA4D29-1936-4B1F-BA0E-D378F6C61389}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DBA4D29-1936-4B1F-BA0E-D378F6C61389}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A00FA5AD-C404-423A-B666-3AE09758BD26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A00FA5AD-C404-423A-B666-3AE09758BD26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A00FA5AD-C404-423A-B666-3AE09758BD26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A00FA5AD-C404-423A-B666-3AE09758BD26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C4D3D37-1BB7-404E-A03D-F5F54DB2F591}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C4D3D37-1BB7-404E-A03D-F5F54DB2F591}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C4D3D37-1BB7-404E-A03D-F5F54DB2F591}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C4D3D37-1BB7-404E-A03D-F5F54DB2F591}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB6A4AC4-0EC6-4BB7-9ECD-03A04044B4AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB6A4AC4-0EC6-4BB7-9ECD-03A04044B4AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB6A4AC4-0EC6-4BB7-9ECD-03A04044B4AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB6A4AC4-0EC6-4BB7-9ECD-03A04044B4AE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{930658F6-A75A-4E14-BF41-E28176C9AAC8} = {D5520363-9F21-41AB-BF02-0ECC1AC1504F}
+		{04A00F60-733F-421C-A30D-45E2F2132D35} = {D5520363-9F21-41AB-BF02-0ECC1AC1504F}
+		{44958E7C-ED57-44DE-99A1-017EB8B04052} = {2ED6F6CC-02B9-4EFC-BDF4-5AC5322E4FE2}
+		{A42335E5-B0E2-4700-9DEC-693A5C3130DB} = {55E0F786-B7EB-4C79-A9CA-195E3E30BBE4}
+		{FA3E217A-99F0-46A2-B454-92E46B9FBCF9} = {55E0F786-B7EB-4C79-A9CA-195E3E30BBE4}
+		{6C4D3D37-1BB7-404E-A03D-F5F54DB2F591} = {55E0F786-B7EB-4C79-A9CA-195E3E30BBE4}
+		{4DBA4D29-1936-4B1F-BA0E-D378F6C61389} = {FA3E217A-99F0-46A2-B454-92E46B9FBCF9}
+		{A00FA5AD-C404-423A-B666-3AE09758BD26} = {FA3E217A-99F0-46A2-B454-92E46B9FBCF9}
+		{EB6A4AC4-0EC6-4BB7-9ECD-03A04044B4AE} = {FA3E217A-99F0-46A2-B454-92E46B9FBCF9}
 	EndGlobalSection
 EndGlobal
