@@ -18,7 +18,10 @@ namespace Confirmations
         public void Handle(NewTradeRecorded message)
         {
             Console.WriteLine("Checking credit status for {0}", message.Counterpart);
-            bus.Send(new GetCreditStatus {Counterpart = message.Counterpart});
+            bus.Send(new GetCreditStatus
+                         {
+                             Counterpart = message.Counterpart
+                         });
         }
 
         public void Handle(GetCreditStatusReply message)
