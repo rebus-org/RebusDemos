@@ -10,7 +10,7 @@ namespace CreditAssessment
 
         public bool IsOk(string counterpart)
         {
-            if (random.Next(3) != 0) throw new WhatamafookException();
+            if (random.Next(4) != 0) throw new WhatamafookException();
 
             Console.WriteLine("Assessing credit status for {0}", counterpart);
 

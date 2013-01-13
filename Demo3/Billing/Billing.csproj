@@ -32,8 +32,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MongoDB.Bson">
+      <HintPath>..\packages\mongocsharpdriver.1.7\lib\net35\MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver">
+      <HintPath>..\packages\mongocsharpdriver.1.7\lib\net35\MongoDB.Driver.dll</HintPath>
+    </Reference>
     <Reference Include="Rebus">
       <HintPath>..\packages\Rebus.0.28.3\lib\NET40\Rebus.dll</HintPath>
+    </Reference>
+    <Reference Include="Rebus.MongoDb">
+      <HintPath>..\packages\Rebus.MongoDb.0.28.3\lib\NET40\Rebus.MongoDb.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -44,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChargeTheCustomer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -52,6 +62,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Confirmations.Messages\Confirmations.Messages.csproj">
+      <Project>{6C4D3D37-1BB7-404E-A03D-F5F54DB2F591}</Project>
+      <Name>Confirmations.Messages</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Trading.Messages\Trading.Messages.csproj">
       <Project>{930658F6-A75A-4E14-BF41-E28176C9AAC8}</Project>
       <Name>Trading.Messages</Name>

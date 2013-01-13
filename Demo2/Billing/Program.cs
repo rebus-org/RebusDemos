@@ -11,20 +11,21 @@ namespace Billing
     {
         static void Main()
         {
-            var adapter = new BuiltinContainerAdapter();
+            using (var adapter = new BuiltinContainerAdapter())
+            {
+                adapter.Register(typeof (ChargeTheCustomer));
 
-            adapter.Register(typeof (ChargeTheCustomer));
+                Configure.With(adapter)
+                         .Logging(l => l.ColoredConsole(LogLevel.Error))
+                         .Transport(t => t.UseMsmqAndGetInputQueueNameFromAppConfig())
+                         .MessageOwnership(o => o.FromRebusConfigurationSection())
+                         .CreateBus()
+                         .Start();
 
-            Configure.With(adapter)
-                     .Logging(l => l.None())
-                     .Transport(t => t.UseMsmqAndGetInputQueueNameFromAppConfig())
-                     .MessageOwnership(o => o.FromRebusConfigurationSection())
-                     .CreateBus()
-                     .Start();
+                Console.WriteLine("----Billing----");
 
-            Console.WriteLine("----Billing----");
-
-            adapter.Bus.Subscribe<NewTradeRecorded>();
+                adapter.Bus.Subscribe<NewTradeRecorded>();
+            }
         }
     }
 
@@ -32,10 +33,10 @@ namespace Billing
     {
         public void Handle(NewTradeRecorded message)
         {
-            Console.WriteLine(@"New trade {0} recorded for {1}
-    Amount: {2:0.0}
-    Price: {3:0.00}
-", message.Id, message.Counterpart, message.Amount, message.Price);
+            Console.WriteLine(@"New trade recorded for {0}
+    Amount: {1:0.0}
+    Price: {2:0.00}
+", message.Counterpart, message.Amount, message.Price);
         }
     }
 }

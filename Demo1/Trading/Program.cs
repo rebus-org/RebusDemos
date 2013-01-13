@@ -14,9 +14,9 @@ namespace Trading
             using (var adapter = new BuiltinContainerAdapter())
             {
                 Configure.With(adapter)
-                         .Logging(l => l.ColoredConsole(LogLevel.Error))
+                         .Logging(l => l.None())
                          .Transport(t => t.UseMsmqAndGetInputQueueNameFromAppConfig())
-                         .Subscriptions(s => s.StoreInMongoDb("mongodb://localhost/warmcroc", "tradingSubs"))
+                         .Subscriptions(s => s.StoreInMongoDb("mongodb://localhost/trading", "subscriptions"))
                          .CreateBus()
                          .Start();
 
@@ -30,7 +30,7 @@ namespace Trading
 
                     adapter.Bus.Publish(new NewTradeRecorded
                                             {
-                                                TradeId = Guid.NewGuid(),
+                                                Id = Guid.NewGuid(),
                                                 Amount = amount,
                                                 Counterpart = counterpart,
                                                 Price = price

@@ -14,9 +14,9 @@ namespace Trading
             using (var adapter = new BuiltinContainerAdapter())
             {
                 Configure.With(adapter)
-                         .Logging(l => l.None())
+                         .Logging(l => l.ColoredConsole(LogLevel.Error))
                          .Transport(t => t.UseMsmqAndGetInputQueueNameFromAppConfig())
-                         .Subscriptions(s => s.StoreInMongoDb("mongodb://localhost/trading", "subscriptions"))
+                         .Subscriptions(s => s.StoreInMongoDb("mongodb://localhost/warmcroc", "tradingSubs"))
                          .CreateBus()
                          .Start();
 

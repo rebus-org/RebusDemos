@@ -24,7 +24,7 @@ namespace CreditAssessment.Integration
 
                 bus.Reply(new GetCreditStatusReply
                               {
-                                  CorrelationId = message.CorrelationId,
+                                  Counterpart = message.Counterpart,
                                   Ok = isOk
                               });
             }

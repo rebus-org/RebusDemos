@@ -30,7 +30,7 @@ namespace Trading
 
                     adapter.Bus.Publish(new NewTradeRecorded
                                             {
-                                                Id = Guid.NewGuid(),
+                                                TradeId = Guid.NewGuid(),
                                                 Amount = amount,
                                                 Counterpart = counterpart,
                                                 Price = price
