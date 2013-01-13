@@ -29,8 +29,8 @@ namespace Billing
                 Console.WriteLine("----Billing----");
 
                 adapter.Bus.Subscribe<NewTradeRecorded>();
-                adapter.Bus.Subscribe<CounterpartConfirmed>();
-                adapter.Bus.Subscribe<CounterpartRejected>();
+                adapter.Bus.Subscribe<TradeConfirmed>();
+                adapter.Bus.Subscribe<TradeRejected>();
 
                 Console.WriteLine("Press ENTER to quit");
                 Console.ReadLine();

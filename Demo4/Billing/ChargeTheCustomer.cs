@@ -7,8 +7,8 @@ namespace Billing
 {
     class ChargeTheCustomer : Saga<BillingSagaData>, 
         IAmInitiatedBy<NewTradeRecorded>,
-        IAmInitiatedBy<CounterpartConfirmed>,
-        IAmInitiatedBy<CounterpartRejected>,
+        IAmInitiatedBy<TradeConfirmed>,
+        IAmInitiatedBy<TradeRejected>,
         IHandleMessages<VerifyComplete>
     {
         readonly IBus bus;
@@ -20,9 +20,9 @@ namespace Billing
 
         public override void ConfigureHowToFindSaga()
         {
-            Incoming<NewTradeRecorded>(m => m.Counterpart).CorrelatesWith(d => d.Counterpart);
-            Incoming<CounterpartConfirmed>(m => m.Counterpart).CorrelatesWith(d => d.Counterpart);
-            Incoming<CounterpartRejected>(m => m.Counterpart).CorrelatesWith(d => d.Counterpart);
+            Incoming<NewTradeRecorded>(m => m.TradeId).CorrelatesWith(d => d.TradeId);
+            Incoming<TradeConfirmed>(m => m.TradeId).CorrelatesWith(d => d.TradeId);
+            Incoming<TradeRejected>(m => m.TradeId).CorrelatesWith(d => d.TradeId);
             Incoming<VerifyComplete>(m => m.CorrelationId).CorrelatesWith(d => d.Id);
         }
 
@@ -33,10 +33,12 @@ namespace Billing
                 bus.Defer(TimeSpan.FromSeconds(10), new VerifyComplete {CorrelationId = Data.Id});
             }
 
+            Data.TradeId = message.TradeId;
             Data.Counterpart = message.Counterpart;
 
             Data.Amount = message.Amount;
             Data.Price = message.Price;
+
             Data.GotTradeDetails = true;
 
             Console.WriteLine(@"New trade recorded for {0}
@@ -47,36 +49,36 @@ namespace Billing
             PossiblyBillTheCustomer();
         }
 
-        public void Handle(CounterpartConfirmed message)
+        public void Handle(TradeConfirmed message)
         {
             if (IsNew)
             {
                 bus.Defer(TimeSpan.FromSeconds(10), new VerifyComplete { CorrelationId = Data.Id });
             }
 
-            Data.Counterpart = message.Counterpart;
+            Data.TradeId = message.TradeId;
 
             Data.GotCreditStatus = true;
             Data.CreditOk = true;
 
-            Console.WriteLine("Counterpart credit status {0} confirmed", message.Counterpart);
+            Console.WriteLine("Counterpart credit status confirmed for trade {0}", message.TradeId);
 
             PossiblyBillTheCustomer();
         }
 
-        public void Handle(CounterpartRejected message)
+        public void Handle(TradeRejected message)
         {
             if (IsNew)
             {
                 bus.Defer(TimeSpan.FromSeconds(10), new VerifyComplete { CorrelationId = Data.Id });
             }
 
-            Data.Counterpart = message.Counterpart;
+            Data.TradeId = message.TradeId;
 
             Data.GotCreditStatus = true;
             Data.CreditOk = false;
 
-            Console.WriteLine("Counterpart credit status {0} NOT confirmed", message.Counterpart);
+            Console.WriteLine("Counterpart credit status NOT confirmed for trade {0}", message.TradeId);
 
             PossiblyBillTheCustomer();
         }
@@ -89,22 +91,26 @@ namespace Billing
             if (Data.CreditOk)
             {
                 Console.WriteLine(@"=========================
-    counterpart: {0}
-    credit:      {1}
+    trade id:    {0}
+    counterpart: {1}
+    credit:      {2}
     
-    sending bill!!
-=========================", Data.Counterpart, Data.CreditOk ? "OK" : "NOT OK");
+    will send invoice
+    w. credit
+=========================", Data.TradeId, Data.Counterpart, Data.CreditOk ? "OK" : "NOT OK");
             }
             else
             {
                 Console.WriteLine(@"=========================
-    counterpart: {0}
-    credit:      {1}
+    trade id:    {0}
+    counterpart: {1}
+    credit:      {2}
     
-    u y no have moneys?!
-=========================", Data.Counterpart, Data.CreditOk ? "OK" : "NOT OK");
+    will send an invoice
+    and ask him to pay
+    immediately
+=========================", Data.TradeId, Data.Counterpart, Data.CreditOk ? "OK" : "NOT OK");
             }
-            Console.WriteLine(@"=========================");
 
             MarkAsComplete();
         }
@@ -115,11 +121,11 @@ namespace Billing
                 @"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 Oh noes!!!11
 
-The saga for {0} was not completed within timeout! 
+The saga for trade {0}/counterpart {1} was not completed within timeout! 
 
 Now we probably want to send an email or something...
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
-                Data.Counterpart);
+                Data.TradeId, Data.Counterpart);
         }
     }
 
@@ -133,6 +139,7 @@ Now we probably want to send an email or something...
         public Guid Id { get; set; }
         public int Revision { get; set; }
 
+        public Guid TradeId { get; set; }
         public string Counterpart { get; set; }
 
         public bool GotTradeDetails { get; set; }
@@ -141,5 +148,6 @@ Now we probably want to send an email or something...
 
         public bool GotCreditStatus { get; set; }
         public bool CreditOk { get; set; }
+
     }
 }

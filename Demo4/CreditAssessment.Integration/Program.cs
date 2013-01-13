@@ -14,7 +14,7 @@ namespace CreditAssessment.Integration
                 adapter.Register(() => new GetCreditStatusHandler(adapter.Bus));
 
                 Configure.With(adapter)
-                         .Logging(l => l.ColoredConsole(LogLevel.Error))
+                         .Logging(l => l.ColoredConsole(LogLevel.Warn))
                          .Transport(t => t.UseMsmqAndGetInputQueueNameFromAppConfig())
                          .CreateBus()
                          .Start();

@@ -1,8 +1,10 @@
-﻿namespace CreditAssessment.Integration.Messages
+﻿using System;
+
+namespace CreditAssessment.Integration.Messages
 {
     public class GetCreditStatusReply
     {
-        public string Counterpart { get; set; }
+        public Guid CorrelationId { get; set; }
         public bool Ok { get; set; }
     }
 }
