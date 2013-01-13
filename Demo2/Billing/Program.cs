@@ -32,10 +32,10 @@ namespace Billing
     {
         public void Handle(NewTradeRecorded message)
         {
-            Console.WriteLine(@"New trade recorded for {0}
-    Amount: {1:0.0}
-    Price: {2:0.00}
-", message.Counterpart, message.Amount, message.Price);
+            Console.WriteLine(@"New trade {0} recorded for {1}
+    Amount: {2:0.0}
+    Price: {3:0.00}
+", message.Id, message.Counterpart, message.Amount, message.Price);
         }
     }
 }

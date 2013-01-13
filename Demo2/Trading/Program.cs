@@ -16,7 +16,7 @@ namespace Trading
                 Configure.With(adapter)
                          .Logging(l => l.None())
                          .Transport(t => t.UseMsmqAndGetInputQueueNameFromAppConfig())
-                         .Subscriptions(s => s.StoreInMongoDb("mongodb://localhost/warmcroc", "tradingSubs"))
+                         .Subscriptions(s => s.StoreInMongoDb("mongodb://localhost/trading", "subscriptions"))
                          .CreateBus()
                          .Start();
 
@@ -30,6 +30,7 @@ namespace Trading
 
                     adapter.Bus.Publish(new NewTradeRecorded
                                             {
+                                                Id = Guid.NewGuid(),
                                                 Amount = amount,
                                                 Counterpart = counterpart,
                                                 Price = price
