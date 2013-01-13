@@ -13,7 +13,7 @@ namespace Billing
         {
             var adapter = new BuiltinContainerAdapter();
 
-            adapter.Register(typeof (BillTheCustomer));
+            adapter.Register(typeof (ChargeTheCustomer));
 
             Configure.With(adapter)
                      .Logging(l => l.None())
@@ -28,7 +28,7 @@ namespace Billing
         }
     }
 
-    class BillTheCustomer : IHandleMessages<NewTradeRecorded>
+    class ChargeTheCustomer : IHandleMessages<NewTradeRecorded>
     {
         public void Handle(NewTradeRecorded message)
         {
