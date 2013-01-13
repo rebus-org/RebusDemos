@@ -28,10 +28,7 @@ namespace Billing
 
         public void Handle(NewTradeRecorded message)
         {
-            if (IsNew)
-            {
-                bus.Defer(TimeSpan.FromSeconds(10), new VerifyComplete {CorrelationId = Data.Id});
-            }
+            PossiblyScheduleVerification();
 
             Data.TradeId = message.TradeId;
             Data.Counterpart = message.Counterpart;
@@ -51,10 +48,7 @@ namespace Billing
 
         public void Handle(TradeConfirmed message)
         {
-            if (IsNew)
-            {
-                bus.Defer(TimeSpan.FromSeconds(10), new VerifyComplete { CorrelationId = Data.Id });
-            }
+            PossiblyScheduleVerification();
 
             Data.TradeId = message.TradeId;
 
@@ -68,10 +62,7 @@ namespace Billing
 
         public void Handle(TradeRejected message)
         {
-            if (IsNew)
-            {
-                bus.Defer(TimeSpan.FromSeconds(10), new VerifyComplete { CorrelationId = Data.Id });
-            }
+            PossiblyScheduleVerification();
 
             Data.TradeId = message.TradeId;
 
@@ -81,6 +72,27 @@ namespace Billing
             Console.WriteLine("Counterpart credit status NOT confirmed for trade {0}", message.TradeId);
 
             PossiblyBillTheCustomer();
+        }
+
+        public void Handle(VerifyComplete message)
+        {
+            Console.WriteLine(
+                @"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Oh noes!!!11
+
+The saga for trade {0}/counterpart {1} was not completed within timeout! 
+
+Now we probably want to send an email or something...
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+                Data.TradeId, Data.Counterpart);
+        }
+
+        void PossiblyScheduleVerification()
+        {
+            if (IsNew)
+            {
+                bus.Defer(TimeSpan.FromSeconds(10), new VerifyComplete {CorrelationId = Data.Id});
+            }
         }
 
         void PossiblyBillTheCustomer()
@@ -114,19 +126,6 @@ namespace Billing
 
             MarkAsComplete();
         }
-
-        public void Handle(VerifyComplete message)
-        {
-            Console.WriteLine(
-                @"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-Oh noes!!!11
-
-The saga for trade {0}/counterpart {1} was not completed within timeout! 
-
-Now we probably want to send an email or something...
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
-                Data.TradeId, Data.Counterpart);
-        }
     }
 
     class VerifyComplete
@@ -148,6 +147,5 @@ Now we probably want to send an email or something...
 
         public bool GotCreditStatus { get; set; }
         public bool CreditOk { get; set; }
-
     }
 }
