@@ -29,7 +29,7 @@ namespace Confirmations
             if (message.Ok)
             {
                 Console.WriteLine("Publishing OK for {0}", message.Counterpart);
-                bus.Publish(new CounterpartConfirmed
+                bus.Publish(new TradeConfirmed
                                 {
                                     Counterpart = message.Counterpart
                                 });
@@ -37,7 +37,7 @@ namespace Confirmations
             else
             {
                 Console.WriteLine("Publishing NOT OK for {0}", message.Counterpart);
-                bus.Publish(new CounterpartRejected
+                bus.Publish(new TradeRejected
                                 {
                                     Counterpart = message.Counterpart
                                 });

@@ -1,6 +1,6 @@
 ﻿namespace Confirmations.Messages
 {
-    public class CounterpartConfirmed
+    public class TradeConfirmed
     {
         public string Counterpart { get; set; }
     }
