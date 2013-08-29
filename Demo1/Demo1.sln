@@ -11,6 +11,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "back office", "back office"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Billing", "Billing\Billing.csproj", "{44958E7C-ED57-44DE-99A1-017EB8B04052}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{314D1BC4-0D1A-49BB-A105-6C82A0B60CC5}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,8 +41,8 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{04A00F60-733F-421C-A30D-45E2F2132D35} = {D5520363-9F21-41AB-BF02-0ECC1AC1504F}
 		{930658F6-A75A-4E14-BF41-E28176C9AAC8} = {D5520363-9F21-41AB-BF02-0ECC1AC1504F}
+		{04A00F60-733F-421C-A30D-45E2F2132D35} = {D5520363-9F21-41AB-BF02-0ECC1AC1504F}
 		{44958E7C-ED57-44DE-99A1-017EB8B04052} = {2ED6F6CC-02B9-4EFC-BDF4-5AC5322E4FE2}
 	EndGlobalSection
 EndGlobal
