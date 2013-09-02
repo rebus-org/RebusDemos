@@ -2,6 +2,7 @@
 using Rebus.Configuration;
 using Rebus.Transports.Msmq;
 using Rebus.Logging;
+using Server.Messages;
 
 namespace Client
 {
@@ -25,9 +26,11 @@ namespace Client
                 Console.WriteLine("Type a greeting + ENTER to send to server" + Environment.NewLine);
                 while (true)
                 {
-                    var greeting = Console.ReadLine();
+                    var text = Console.ReadLine();
 
-                    if (string.IsNullOrWhiteSpace(greeting)) break;
+                    if (string.IsNullOrWhiteSpace(text)) break;
+
+                    var greeting = new GreetingMessage(text);
 
                     bus.Send(greeting);
                 }
