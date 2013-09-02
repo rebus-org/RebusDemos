@@ -26,6 +26,7 @@ namespace Billing
 
                 adapter.Bus.Subscribe<NewTradeRecorded>();
 
+                Console.WriteLine("Press ENTER to quit");
                 Console.ReadLine();
             }
         }
