@@ -25,6 +25,8 @@ namespace Billing
                 Console.WriteLine("----Billing----");
 
                 adapter.Bus.Subscribe<NewTradeRecorded>();
+
+                Console.ReadLine();
             }
         }
     }
