@@ -14,6 +14,11 @@ namespace CreditAssessment
 
             Console.WriteLine("Assessing credit status for {0}", counterpart);
 
+            return PretendToActuallyDoSomething(counterpart);
+        }
+
+        static bool PretendToActuallyDoSomething(string counterpart)
+        {
             return counterpart.Length%2 == 0;
         }
     }
