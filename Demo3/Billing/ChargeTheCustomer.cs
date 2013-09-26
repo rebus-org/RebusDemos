@@ -36,8 +36,6 @@ namespace Billing
             Data.Amount = message.Amount;
             Data.Price = message.Price;
 
-            Data.GotTradeDetails = true;
-
             Console.WriteLine(@"New trade recorded for {0}
     Amount: {1:0.0}
     Price: {2:0.00}
@@ -52,7 +50,6 @@ namespace Billing
 
             Data.TradeId = message.TradeId;
 
-            Data.GotCreditStatus = true;
             Data.CreditOk = true;
 
             Console.WriteLine("Counterpart credit status confirmed for trade {0}", message.TradeId);
@@ -66,7 +63,6 @@ namespace Billing
 
             Data.TradeId = message.TradeId;
 
-            Data.GotCreditStatus = true;
             Data.CreditOk = false;
 
             Console.WriteLine("Counterpart credit status NOT confirmed for trade {0}", message.TradeId);
@@ -97,10 +93,10 @@ Now we probably want to send an email or something...
 
         void PossiblyBillTheCustomer()
         {
-            if (!Data.GotCreditStatus) return;
-            if (!Data.GotTradeDetails) return;
+            if (!Data.GotCreditStatus()) return;
+            if (!Data.GotTradeDetails()) return;
 
-            if (Data.CreditOk)
+            if (Data.CreditOk.Value)
             {
                 Console.WriteLine(@"=========================
     trade id:    {0}
@@ -109,7 +105,7 @@ Now we probably want to send an email or something...
     
     will send invoice
     w. credit
-=========================", Data.TradeId, Data.Counterpart, Data.CreditOk ? "OK" : "NOT OK");
+=========================", Data.TradeId, Data.Counterpart, Data.CreditOk.Value ? "OK" : "NOT OK");
             }
             else
             {
@@ -121,7 +117,7 @@ Now we probably want to send an email or something...
     will send an invoice
     and ask him to pay
     immediately
-=========================", Data.TradeId, Data.Counterpart, Data.CreditOk ? "OK" : "NOT OK");
+=========================", Data.TradeId, Data.Counterpart, Data.CreditOk.Value ? "OK" : "NOT OK");
             }
 
             MarkAsComplete();
@@ -141,11 +137,19 @@ Now we probably want to send an email or something...
         public Guid TradeId { get; set; }
         public string Counterpart { get; set; }
 
-        public bool GotTradeDetails { get; set; }
-        public decimal Amount { get; set; }
-        public decimal Price { get; set; }
+        public decimal? Amount { get; set; }
+        public decimal? Price { get; set; }
 
-        public bool GotCreditStatus { get; set; }
-        public bool CreditOk { get; set; }
+        public bool? CreditOk { get; set; }
+
+        public bool GotCreditStatus()
+        {
+            return CreditOk.HasValue;
+        }
+
+        public bool GotTradeDetails()
+        {
+            return Amount.HasValue && Price.HasValue;
+        }
     }
 }
