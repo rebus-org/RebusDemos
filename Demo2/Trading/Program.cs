@@ -3,7 +3,7 @@ using Common;
 using Rebus.Activation;
 using Rebus.Config;
 using Trading.Messages;
-using Rebus.Logging;
+
 // ReSharper disable ArgumentsStyleLiteral
 
 namespace Trading
@@ -15,9 +15,7 @@ namespace Trading
             using (var activator = new BuiltinHandlerActivator())
             {
                 var bus = Configure.With(activator)
-                    .Logging(l => l.ColoredConsole(LogLevel.Info))
-                    .Transport(t => t.UseMsmq("trading"))
-                    .Subscriptions(s => s.StoreInSqlServer(Config.ConnectionString, "Subscriptions", isCentralized: true))
+                    .ConfigureEndpoint("trading")
                     .Start();
 
                 Console.WriteLine("===== Trading =====");
@@ -30,7 +28,6 @@ namespace Trading
 
                     var commodity = Prompt<string>("Commodity");
                     var quantity = Prompt<decimal>("Quantity");
-
 
                     bus.Publish(new TradeCreated(IdGenerator.NewId("trade"), counterparty, commodity, quantity)).Wait();
                 }

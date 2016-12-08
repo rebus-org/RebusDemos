@@ -3,7 +3,6 @@ using Billing.Handlers;
 using Common;
 using Rebus.Activation;
 using Rebus.Config;
-using Rebus.Logging;
 using Trading.Messages;
 
 // ReSharper disable ArgumentsStyleLiteral
@@ -21,9 +20,7 @@ namespace Billing
                     .Register(() => new SendInvoiceHandler());
 
                 Configure.With(activator)
-                    .Logging(l => l.ColoredConsole(LogLevel.Info))
-                    .Transport(t => t.UseMsmq("billing"))
-                    .Subscriptions(s => s.StoreInSqlServer(Config.ConnectionString, "Subscriptions", isCentralized: true))
+                    .ConfigureEndpoint("billing")
                     .Start();
 
                 activator.Bus.Subscribe<TradeCreated>().Wait();
