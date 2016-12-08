@@ -1,5 +1,6 @@
 ﻿using System;
 using Common;
+using Confirmation.Handlers;
 using Rebus.Activation;
 using Rebus.Config;
 
@@ -11,6 +12,8 @@ namespace Confirmation
         {
             using (var activator = new BuiltinHandlerActivator())
             {
+                activator.Register((bus, context) => new ConfirmationHandler(bus));
+
                 Configure.With(activator)
                     .ConfigureEndpoint("confirmation")
                     .Start();

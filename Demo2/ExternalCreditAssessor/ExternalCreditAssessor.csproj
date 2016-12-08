@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D2FA6FEA-1153-44BF-8991-AB69E651129F}</ProjectGuid>
+    <ProjectGuid>{C4D80719-0EEF-4C36-A220-34A3E35D80A2}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Confirmation</RootNamespace>
-    <AssemblyName>Confirmation</AssemblyName>
+    <RootNamespace>ExternalCreditAssessor</RootNamespace>
+    <AssemblyName>ExternalCreditAssessor</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -32,18 +32,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Rebus, Version=2.1.6.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Rebus.2.1.6\lib\NET45\Rebus.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Rebus.Msmq, Version=2.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Rebus.Msmq.2.0.1\lib\NET45\Rebus.Msmq.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Rebus.SqlServer, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Rebus.SqlServer.2.0.0\lib\NET45\Rebus.SqlServer.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -54,27 +42,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Handlers\ConfirmationHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{D7DA07DC-E1E3-4C7C-A641-4E5B629400D4}</Project>
-      <Name>Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Confirmation.Messages\Confirmation.Messages.csproj">
-      <Project>{9F6F8986-D6FE-44D7-A255-FBF5F6C3018A}</Project>
-      <Name>Confirmation.Messages</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Trading.Messages\Trading.Messages.csproj">
-      <Project>{0B083D0D-7F0A-4215-9665-6C8B5B55BA81}</Project>
-      <Name>Trading.Messages</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
