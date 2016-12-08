@@ -32,6 +32,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Rebus, Version=2.1.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rebus.2.1.6\lib\NET45\Rebus.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Rebus.Msmq, Version=2.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rebus.Msmq.2.0.1\lib\NET45\Rebus.Msmq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -47,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
