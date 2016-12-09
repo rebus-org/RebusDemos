@@ -18,7 +18,7 @@ namespace Trading
             using (var activator = new BuiltinHandlerActivator())
             {
                 var bus = Configure.With(activator)
-                    .ConfigureEndpoint("trading")
+                    .ConfigureEndpoint(Config.Queues.Trading)
                     .Start();
 
                 Console.WriteLine("===== Trading =====");

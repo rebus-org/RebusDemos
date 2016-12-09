@@ -20,7 +20,7 @@ namespace Billing
                     .Register(() => new SendInvoiceHandler());
 
                 Configure.With(activator)
-                    .ConfigureEndpoint("billing")
+                    .ConfigureEndpoint(Config.Queues.Billing)
                     .Start();
 
                 activator.Bus.Subscribe<TradeCreated>().Wait();

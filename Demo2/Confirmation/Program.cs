@@ -23,7 +23,7 @@ namespace Confirmation
                     activator.Register((bus, context) => new ConfirmationHandler(bus, creditAssessmentClient));
 
                     Configure.With(activator)
-                        .ConfigureEndpoint("confirmation")
+                        .ConfigureEndpoint(Config.Queues.Confirmation)
                         .Start();
 
                     activator.Bus.Subscribe<TradeCreated>().Wait();
