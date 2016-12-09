@@ -38,6 +38,15 @@ namespace ExternalCreditAssessor
 
                 await Task.Delay(TimeSpan.FromSeconds(1));
 
+                // 50% risk that call fails
+                var shouldFail = random.Value.Next(2) == 0;
+
+                if (shouldFail)
+                {
+                    await context.WriteStatus(HttpStatusCode.InternalServerError, reason: "Server experienced something bad");
+                    return;
+                }
+
                 // 20% risk that counterparty is not good
 
                 var isGood = random.Value.Next(5) != 0;
