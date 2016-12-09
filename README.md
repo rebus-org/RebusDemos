@@ -8,7 +8,7 @@ course at Aarhus University.
 
 The demos are:
 
-* [/Demo0](Demo0) - demonstrates a very simple client that sends a string to a server
+* [[Demo0]] - demonstrates a very simple client that sends a string to a server
 * [/Demo1](Demo1) - shows how a fictional Trading endpoint can publish events, which can be subscribed to by the Billing endpoint
 * [/Demo2](Demo2) - introduces an external HTTP-based credit assessment service, which is fairly unstable
 * [/Demo3](Demo3) - uses a saga to coordinate the invoicing flow
