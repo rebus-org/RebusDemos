@@ -14,21 +14,25 @@ namespace Confirmation
     {
         static void Main()
         {
-            using (var httpClient = new HttpClient())
-            using (var activator = new BuiltinHandlerActivator())
+            using (var creditAssessmentClient = new HttpClient())
             {
-                activator.Register((bus, context) => new ConfirmationHandler(bus, httpClient));
+                creditAssessmentClient.BaseAddress = new Uri(Config.CreditAssessmentUrl);
 
-                Configure.With(activator)
-                    .ConfigureEndpoint("confirmation")
-                    .Start();
+                using (var activator = new BuiltinHandlerActivator())
+                {
+                    activator.Register((bus, context) => new ConfirmationHandler(bus, creditAssessmentClient));
 
-                activator.Bus.Subscribe<TradeCreated>().Wait();
+                    Configure.With(activator)
+                        .ConfigureEndpoint("confirmation")
+                        .Start();
 
-                Console.WriteLine("===== Confirmation =====");
+                    activator.Bus.Subscribe<TradeCreated>().Wait();
 
-                Console.WriteLine("Press ENTER to quit");
-                Console.ReadLine();
+                    Console.WriteLine("===== Confirmation =====");
+
+                    Console.WriteLine("Press ENTER to quit");
+                    Console.ReadLine();
+                }
             }
         }
     }

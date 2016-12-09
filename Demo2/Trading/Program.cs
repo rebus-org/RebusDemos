@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Common;
 using Rebus.Activation;
 using Rebus.Config;
@@ -22,15 +25,40 @@ namespace Trading
 
                 while (true)
                 {
-                    var counterparty = Prompt<string>("Counterparty");
+                    Console.WriteLine("Enter (s)ingle trade, or auto-generate (m)ultiple?");
+                    var key = ReadKey("sm");
 
-                    if (string.IsNullOrWhiteSpace(counterparty)) break;
+                    if (key == 's')
+                    {
+                        var counterparty = Prompt<string>("Counterparty");
 
-                    var commodity = Prompt<string>("Commodity");
-                    var quantity = Prompt<decimal>("Quantity");
+                        if (string.IsNullOrWhiteSpace(counterparty)) break;
 
-                    bus.Publish(new TradeCreated(IdGenerator.NewId("trade"), counterparty, commodity, quantity)).Wait();
+                        var commodity = Prompt<string>("Commodity");
+                        var quantity = Prompt<decimal>("Quantity");
+
+                        bus.Publish(new TradeCreated(IdGenerator.NewId("trade"), counterparty, commodity, quantity)).Wait();
+                    }
+                    else
+                    {
+                        var events = Enumerable.Range(0, 10)
+                            .Select(index => new TradeCreated(IdGenerator.NewId("trade"),
+                                $"Counterparty {index + 1}", "Oil", (index + 1) * 10));
+
+                        Task.WaitAll(events.Select(e => bus.Publish(e)).ToArray());
+                    }
                 }
+            }
+        }
+
+        static char ReadKey(IEnumerable<char> allowedChars)
+        {
+            var allowedCharsHash = new HashSet<char>(allowedChars.Select(char.ToLowerInvariant));
+            while (true)
+            {
+                var keyChar = char.ToLowerInvariant(Console.ReadKey(true).KeyChar);
+                if (!allowedCharsHash.Contains(keyChar)) continue;
+                return keyChar;
             }
         }
 

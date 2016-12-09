@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.Owin;
 
@@ -12,6 +13,8 @@ namespace ExternalCreditAssessor
             var response = context.Response;
 
             response.StatusCode = intStatus;
+
+            Console.WriteLine($"Status: {intStatus} ({status})");
 
             if (intStatus >= 200 && intStatus < 300)
             {

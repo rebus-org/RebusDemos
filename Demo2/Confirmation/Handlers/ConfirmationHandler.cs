@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Web;
 using Confirmation.Messages;
 using Rebus.Bus;
 using Rebus.Handlers;
@@ -12,13 +11,13 @@ namespace Confirmation.Handlers
 {
     public class ConfirmationHandler : IHandleMessages<TradeCreated>
     {
-        readonly HttpClient _httpClient;
+        readonly HttpClient _creditAssessmentClient;
         readonly IBus _bus;
 
-        public ConfirmationHandler(IBus bus, HttpClient httpClient)
+        public ConfirmationHandler(IBus bus, HttpClient creditAssessmentClient)
         {
             _bus = bus;
-            _httpClient = httpClient;
+            _creditAssessmentClient = creditAssessmentClient;
         }
 
         public async Task Handle(TradeCreated message)
@@ -31,7 +30,8 @@ namespace Confirmation.Handlers
 
 Checking ExternalCreditAssessor... ");
 
-            var result = await _httpClient.GetStringAsync($"http://localhost:7000/check-credit?counterparty={message.Counterparty}");
+            var counterparty = HttpUtility.UrlEncode(message.Counterparty);
+            var result = await _creditAssessmentClient.GetStringAsync($"check-credit?counterparty={counterparty}");
 
             Console.WriteLine($"result: {result}");
 

@@ -10,7 +10,8 @@ namespace Common
             return configurer
                 .Logging(l => l.ColoredConsole(LogLevel.Warn))
                 .Transport(t => t.UseMsmq(inputQueueName))
-                .Subscriptions(s => s.StoreInSqlServer(Config.ConnectionString, "Subscriptions", isCentralized: true));
+                .Subscriptions(s => s.StoreInSqlServer(Config.ConnectionString, "Subscriptions", isCentralized: true))
+                ;
         }
     }
 }
