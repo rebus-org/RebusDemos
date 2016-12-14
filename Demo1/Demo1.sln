@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.25928.0
+VisualStudioVersion = 15.0.26009.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trading", "Trading\Trading.csproj", "{EC372F02-5828-40F3-A886-AA9389AE581A}"
 EndProject
@@ -10,6 +10,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trading.Messages", "Trading.Messages\Trading.Messages.csproj", "{0B083D0D-7F0A-4215-9665-6C8B5B55BA81}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{D7DA07DC-E1E3-4C7C-A641-4E5B629400D4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 front office", "1 front office", "{472B3AEC-C64A-4F24-B96D-333CAB5AE6E3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 back office", "2 back office", "{1604A7B8-6129-4D15-9A9E-5909EA19277E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "stuff", "stuff", "{447030AB-1923-45A8-987D-3D59FF5D94BF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,5 +42,11 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EC372F02-5828-40F3-A886-AA9389AE581A} = {472B3AEC-C64A-4F24-B96D-333CAB5AE6E3}
+		{72B737A3-26A6-4486-96C0-ADACFB9479F4} = {1604A7B8-6129-4D15-9A9E-5909EA19277E}
+		{0B083D0D-7F0A-4215-9665-6C8B5B55BA81} = {472B3AEC-C64A-4F24-B96D-333CAB5AE6E3}
+		{D7DA07DC-E1E3-4C7C-A641-4E5B629400D4} = {447030AB-1923-45A8-987D-3D59FF5D94BF}
 	EndGlobalSection
 EndGlobal
