@@ -24,6 +24,10 @@ namespace Confirmation
 
                     Configure.With(activator)
                         .ConfigureEndpoint(Config.Queues.Confirmation)
+                        .Options(o =>
+                        {
+                            o.SetMaxParallelism(100);
+                        })
                         .Start();
 
                     activator.Bus.Subscribe<TradeCreated>().Wait();

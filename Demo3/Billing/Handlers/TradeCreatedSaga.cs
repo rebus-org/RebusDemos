@@ -9,7 +9,7 @@ using Trading.Messages;
 
 namespace Billing.Handlers
 {
-    public class TradeCreatedSaga : Saga<TradeCreatedSaga.TradeCreatedSagaData>, 
+    public class TradeCreatedSaga : Saga<TradeCreatedSaga.TradeCreatedSagaData>,
         IAmInitiatedBy<TradeCreated>,
         IAmInitiatedBy<TradeAccepted>, 
         IAmInitiatedBy<TradeRejected>,
@@ -95,6 +95,7 @@ namespace Billing.Handlers
         {
             if (Data.TradeWasRejected)
             {
+                Console.WriteLine($"Trade {Data.TradeId} rejected... not doing anything");
                 MarkAsComplete();
                 return;
             }
