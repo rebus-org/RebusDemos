@@ -51,6 +51,18 @@ namespace TradeClearanceHouseApi
                             }
                         }
 
+                        if (settings.Mode == Mode.InDistress)
+                        {
+                            var barf = random.Value.NextDouble() > 0.05;
+
+                            if (barf)
+                            {
+                                Console.WriteLine("FAIL");
+
+                                throw new ApplicationException("BWWLLWRLWLRWLWRRRRRRRRRRRRRR");
+                            }
+                        }
+
                         var ok = random.Value.NextDouble() < 0.5;
 
                         Console.WriteLine($" result: {(ok ? "OK" : "Not ok")}");

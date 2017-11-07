@@ -17,6 +17,7 @@ namespace TradeClearanceHouseApi
     {
         Normal,
         Unstable,
+        InDistress,
         Slow,
     }
 }

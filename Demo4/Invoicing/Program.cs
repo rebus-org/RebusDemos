@@ -1,4 +1,5 @@
 ﻿using System;
+using Confirmation.Messages;
 using Invoicing.Handlers;
 using Rebus.Activation;
 using Rebus.Config;
@@ -11,19 +12,25 @@ namespace Invoicing
 {
     class Program
     {
+        const string ConnectionString = "server=.; database=RebusDemos; trusted_connection=true";
+
         static void Main()
         {
             using (var activator = new BuiltinHandlerActivator())
             {
-                activator.Register(() => new TradeRecordedHandler());
+                activator.Register((bus, context) => new InvoicingSaga(bus));
 
-                var bus = Configure.With(activator)
+                Configure.With(activator)
                     .Logging(l => l.ColoredConsole(minLevel: LogLevel.Warn))
-                    .Subscriptions(s => s.StoreInSqlServer("server=.; database=RebusDemos; trusted_connection=true", "Subscriptions", isCentralized: true))
+                    .Subscriptions(s => s.StoreInSqlServer(ConnectionString, "Subscriptions", isCentralized: true))
+                    .Sagas(s => s.StoreInSqlServer(ConnectionString, "Sagas", "SagaIndex"))
+                    .Timeouts(s => s.StoreInSqlServer(ConnectionString, "Timeouts"))
                     .Transport(t => t.UseMsmq("invoicing"))
                     .Start();
 
-                bus.Subscribe<TradeRecorded>().Wait();
+                activator.Bus.Subscribe<TradeRecorded>().Wait();
+                activator.Bus.Subscribe<TradeApproved>().Wait();
+                activator.Bus.Subscribe<TradeRejected>().Wait();
 
                 Console.WriteLine("Invoicing is running - press ENTER to quit");
                 Console.ReadLine();
