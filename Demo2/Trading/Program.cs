@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
 using Rebus.Activation;
 using Rebus.Config;
 using Rebus.Logging;
 using Trading.Messages;
 // ReSharper disable ArgumentsStyleNamedExpression
+// ReSharper disable ArgumentsStyleLiteral
 
 namespace Trading
 {
@@ -23,16 +26,31 @@ namespace Trading
 
                 while (true)
                 {
-                    Console.WriteLine("Please enter new trade details");
-                    Console.Write(" commodity > ");
-                    var commodity = Console.ReadLine();
-                    if (string.IsNullOrWhiteSpace(commodity)) break;
+                    Console.WriteLine("(1) single trade, (2) many trades, (q) quit");
 
-                    Console.Write("  quantity > ");
-                    int quantity;
-                    while (!int.TryParse(Console.ReadLine(), out quantity)) ;
+                    var key = Console.ReadKey(true);
 
-                    bus.Publish(new TradeRecorded(GenerateNewTradeId(), commodity, quantity)).Wait();
+                    if (key.KeyChar == '1')
+                    {
+                        Console.WriteLine("Please enter new trade details");
+                        Console.Write(" commodity > ");
+                        var commodity = Console.ReadLine();
+                        if (string.IsNullOrWhiteSpace(commodity)) break;
+
+                        Console.Write("  quantity > ");
+                        int quantity;
+                        while (!int.TryParse(Console.ReadLine(), out quantity)) ;
+
+                        bus.Publish(new TradeRecorded(GenerateNewTradeId(), commodity, quantity)).Wait();
+                    }
+                    else if (key.KeyChar == '2')
+                    {
+                        var tradeId = GenerateNewTradeId();
+
+                        Task.WaitAll(Enumerable.Range(0, 30)
+                            .Select(i => bus.Publish(new TradeRecorded($"{tradeId}/{i}", "Cowboytoast", i*7%11)))
+                            .ToArray());
+                    }
                 }
             }
 

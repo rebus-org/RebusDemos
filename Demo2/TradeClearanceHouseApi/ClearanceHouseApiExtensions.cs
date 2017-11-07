@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,25 +13,54 @@ namespace TradeClearanceHouseApi
 {
     public static class ClearanceHouseApiExtensions
     {
-        public static void RunClearanceHouseApi(this IAppBuilder app)
+        public static void RunClearanceHouseApi(this IAppBuilder app, ClearanceHouseSettings settings)
         {
+            var semaphore = new SemaphoreSlim(1, 1);
             var random = new ThreadLocal<Random>(() => new Random(DateTime.Now.GetHashCode()));
 
             app.MapWhen(c => c.Request.Method.Equals("POST", StringComparison.OrdinalIgnoreCase), a =>
             {
                 a.Run(async context =>
                 {
-                    var request = await Deserialize<CheckTradeRequest>(context.Request);
+                    await semaphore.WaitAsync();
 
-                    Console.Write($"Clearing trade {request.TradeId} ({request.Quantity} x {request.Commodity})...");
+                    try
+                    {
+                        var request = await Deserialize<CheckTradeRequest>(context.Request);
 
-                    await Task.Delay(1000);
+                        Console.Write($"Clearing trade {request.TradeId} ({request.Quantity} x {request.Commodity})...");
 
-                    var ok = random.Value.NextDouble() < 0.5;
+                        if (settings.Mode == Mode.Slow)
+                        {
+                            foreach (var delay in Enumerable.Repeat(TimeSpan.FromSeconds(0.2), 7))
+                            {
+                                Console.Write(".");
+                                await Task.Delay(delay);
+                            }
+                        }
 
-                    Console.WriteLine($" result: {(ok ? "OK" : "Not ok")}");
+                        if (settings.Mode == Mode.Unstable)
+                        {
+                            var barf = random.Value.NextDouble() > 0.3;
 
-                    await context.Response.WriteAsync(Serialize(new CheckTradeResponse(ok)));
+                            if (barf)
+                            {
+                                Console.WriteLine("FAIL");
+
+                                throw new ApplicationException("BWWLLWRLWLRWLWRRRRRRRRRRRRRR");
+                            }
+                        }
+
+                        var ok = random.Value.NextDouble() < 0.5;
+
+                        Console.WriteLine($" result: {(ok ? "OK" : "Not ok")}");
+
+                        await context.Response.WriteAsync(Serialize(new CheckTradeResponse(ok)));
+                    }
+                    finally
+                    {
+                        semaphore.Release();
+                    }
                 });
             });
         }

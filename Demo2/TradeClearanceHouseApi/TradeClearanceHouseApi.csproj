@@ -57,6 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClearanceHouseSettings.cs" />
     <Compile Include="Dtos\CheckTradeRequest.cs" />
     <Compile Include="Dtos\CheckTradeResponse.cs" />
     <Compile Include="ClearanceHouseApiExtensions.cs" />

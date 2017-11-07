@@ -27,6 +27,9 @@ namespace Confirmation.Handlers
             Console.Write($"Clearing trade {message.TradeId} ({message.Quantity} x {message.Commodity})... ");
 
             var response = await _http.PostAsync("http://localhost:30001", GetContent(message));
+
+            response.EnsureSuccessStatusCode();
+
             var result = await Deserialize<ClearingResult>(response);
             var confirmed = result.Ok;
 
