@@ -59,6 +59,11 @@ namespace Invoicing.Handlers
 
         public async Task Handle(TradeApproved message)
         {
+            if (IsNew)
+            {
+                await _bus.DeferLocal(TimeSpan.FromSeconds(10), new VerifyComplete(message.TradeId));
+            }
+
             Data.Confirmed = true;
 
             if (Data.HasTradeDetails())
@@ -70,6 +75,11 @@ namespace Invoicing.Handlers
 
         public async Task Handle(TradeRejected message)
         {
+            if (IsNew)
+            {
+                await _bus.DeferLocal(TimeSpan.FromSeconds(10), new VerifyComplete(message.TradeId));
+            }
+
             Data.Confirmed = false;
 
             if (Data.HasTradeDetails())
