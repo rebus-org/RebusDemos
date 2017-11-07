@@ -15,3 +15,5 @@ _ReSharper.*
 *.dotsettings.user
 *.suo
 *.cache
+.vs
+.vs/*
