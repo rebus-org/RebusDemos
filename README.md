@@ -3,8 +3,8 @@
 This demo code was used in its original form (the projects residing in the "old" folder) at the GOTO Aarhus
 conference in 2013.
 
-The updated form was used in a guest lecture on the "Middleware and Communication Protocols for Dependable Systems"
-course at Aarhus University.
+The updated form was used in 2016 in a guest lecture on the "Middleware and Communication Protocols for Dependable Systems"
+course at Aarhus University, and in 2017 in a Barcelona .NET Core meetup.
 
 The demos are:
 
