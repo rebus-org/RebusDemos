@@ -16,7 +16,7 @@ namespace TradeClearanceHouseApi
         public static void RunClearanceHouseApi(this IAppBuilder app, ClearanceHouseSettings settings)
         {
             var semaphore = new SemaphoreSlim(1, 1);
-            var random = new ThreadLocal<Random>(() => new Random(DateTime.Now.GetHashCode()));
+            var random = new Random(DateTime.Now.GetHashCode());
 
             app.MapWhen(c => c.Request.Method.Equals("POST", StringComparison.OrdinalIgnoreCase), a =>
             {
@@ -41,7 +41,7 @@ namespace TradeClearanceHouseApi
 
                         if (settings.Mode == Mode.Unstable)
                         {
-                            var barf = random.Value.NextDouble() > 0.3;
+                            var barf = random.NextDouble() > 0.3;
 
                             if (barf)
                             {
@@ -51,7 +51,7 @@ namespace TradeClearanceHouseApi
                             }
                         }
 
-                        var ok = random.Value.NextDouble() < 0.5;
+                        var ok = random.NextDouble() < 0.5;
 
                         Console.WriteLine($" result: {(ok ? "OK" : "Not ok")}");
 
