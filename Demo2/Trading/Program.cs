@@ -51,6 +51,10 @@ namespace Trading
                             .Select(i => bus.Publish(new TradeRecorded($"{tradeId}/{i}", "Cowboytoast", i*7%11)))
                             .ToArray());
                     }
+                    else if (char.ToLowerInvariant(key.KeyChar) == 'q')
+                    {
+                        break;
+                    }
                 }
             }
 
