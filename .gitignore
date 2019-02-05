@@ -1,10 +1,15 @@
+.vs
+.vs/*
 obj
+obj/*
 bin
+bin/*
 deploy
 deploy/*
 packages
 packages/*
 _ReSharper.*
+
 *.csproj.user
 *.resharper.user
 *.ReSharper.user
@@ -15,5 +20,3 @@ _ReSharper.*
 *.dotsettings.user
 *.suo
 *.cache
-.vs
-.vs/*
