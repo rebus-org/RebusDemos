@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Http;
+using System.Threading.Tasks;
 using Confirmation.Handlers;
 using Rebus.Activation;
 using Rebus.Config;
@@ -13,24 +14,24 @@ namespace Confirmation
 {
     class Program
     {
-        static void Main()
+        static async Task Main()
         {
-            using (var activator = new BuiltinHandlerActivator())
-            using (var http = new HttpClient())
-            {
-                activator.Register((bus, context) => new TradeRecordedHandler(bus, http));
+            using var activator = new BuiltinHandlerActivator();
+            
+            using var http = new HttpClient();
+            
+            activator.Register((bus, context) => new TradeRecordedHandler(bus, http));
 
-                Configure.With(activator)
-                    .Logging(l => l.ColoredConsole(minLevel: LogLevel.Warn))
-                    .Subscriptions(s => s.StoreInSqlServer("server=.; database=RebusDemos; trusted_connection=true; encrypt=false", "Subscriptions", isCentralized: true))
-                    .Transport(t => t.UseMsmq("confirmation"))
-                    .Start();
+            Configure.With(activator)
+                .Logging(l => l.ColoredConsole(minLevel: LogLevel.Warn))
+                .Subscriptions(s => s.StoreInSqlServer("server=.; database=RebusDemos; trusted_connection=true; encrypt=false", "Subscriptions", isCentralized: true))
+                .Transport(t => t.UseMsmq("confirmation"))
+                .Start();
 
-                activator.Bus.Subscribe<TradeRecorded>().Wait();
+            await activator.Bus.Subscribe<TradeRecorded>();
 
-                Console.WriteLine("Confirmation is running - press ENTER to quit");
-                Console.ReadLine();
-            }
+            Console.WriteLine("Confirmation is running - press ENTER to quit");
+            Console.ReadLine();
         }
     }
 }

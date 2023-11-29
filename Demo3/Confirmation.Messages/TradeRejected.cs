@@ -1,12 +1,11 @@
-﻿namespace Confirmation.Messages
-{
-    public class TradeRejected
-    {
-        public string TradeId { get; }
+﻿namespace Confirmation.Messages;
 
-        public TradeRejected(string tradeId)
-        {
-            TradeId = tradeId;
-        }
+public class TradeRejected
+{
+    public string TradeId { get; }
+
+    public TradeRejected(string tradeId)
+    {
+        TradeId = tradeId;
     }
 }

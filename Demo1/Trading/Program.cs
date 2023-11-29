@@ -1,43 +1,41 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Rebus.Activation;
 using Rebus.Config;
 using Rebus.Logging;
 using Trading.Messages;
 // ReSharper disable ArgumentsStyleNamedExpression
 
-namespace Trading
+namespace Trading;
+
+class Program
 {
-    class Program
+    static async Task Main()
     {
-        static void Main()
+        using var activator = new BuiltinHandlerActivator();
+
+        var bus = Configure.With(activator)
+            .Logging(l => l.ColoredConsole(minLevel: LogLevel.Warn))
+            .Subscriptions(s => s.StoreInSqlServer("server=.; database=RebusDemos; trusted_connection=true; encrypt=false", "Subscriptions", isCentralized: true))
+            .Transport(t => t.UseMsmq("trading"))
+            .Start();
+
+        Console.WriteLine("Trading is running");
+
+        while (true)
         {
-            using (var activator = new BuiltinHandlerActivator())
-            {
-                var bus = Configure.With(activator)
-                    .Logging(l => l.ColoredConsole(minLevel: LogLevel.Warn))
-                    .Subscriptions(s => s.StoreInSqlServer("server=.; database=RebusDemos; trusted_connection=true; encrypt=false", "Subscriptions", isCentralized: true))
-                    .Transport(t => t.UseMsmq("trading"))
-                    .Start();
+            Console.WriteLine("Please enter new trade details");
+            Console.Write(" commodity > ");
+            var commodity = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(commodity)) break;
 
-                Console.WriteLine("Trading is running");
+            Console.Write("  quantity > ");
+            int quantity;
+            while (!int.TryParse(Console.ReadLine(), out quantity)) ;
 
-                while (true)
-                {
-                    Console.WriteLine("Please enter new trade details");
-                    Console.Write(" commodity > ");
-                    var commodity = Console.ReadLine();
-                    if (string.IsNullOrWhiteSpace(commodity)) break;
-
-                    Console.Write("  quantity > ");
-                    int quantity;
-                    while (!int.TryParse(Console.ReadLine(), out quantity)) ;
-
-                    bus.Publish(new TradeRecorded(GenerateNewTradeId(), commodity, quantity)).Wait();
-                }
-            }
-
+            await bus.Publish(new TradeRecorded(GenerateNewTradeId(), commodity, quantity));
         }
-
-        static string GenerateNewTradeId() => $"trade-{DateTime.Now:yyyyMMdd-HHmmss}";
     }
+
+    static string GenerateNewTradeId() => $"trade-{DateTime.Now:yyyyMMdd-HHmmss}";
 }

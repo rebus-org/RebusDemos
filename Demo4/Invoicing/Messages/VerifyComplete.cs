@@ -1,12 +1,11 @@
-﻿namespace Invoicing.Messages
-{
-    public class VerifyComplete
-    {
-        public string TradeId { get; }
+﻿namespace Invoicing.Messages;
 
-        public VerifyComplete(string tradeId)
-        {
-            TradeId = tradeId;
-        }    
-    }
+public class VerifyComplete
+{
+    public string TradeId { get; }
+
+    public VerifyComplete(string tradeId)
+    {
+        TradeId = tradeId;
+    }    
 }

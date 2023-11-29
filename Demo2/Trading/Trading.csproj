@@ -2,6 +2,7 @@
 	<PropertyGroup>
 		<TargetFramework>net48</TargetFramework>
 		<OutputType>Exe</OutputType>
+		<LangVersion>12</LangVersion>
 	</PropertyGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\Trading.Messages\Trading.Messages.csproj" />

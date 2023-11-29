@@ -2,5 +2,6 @@
 	<PropertyGroup>
 		<TargetFramework>netstandard2.0</TargetFramework>
 		<OutputType>Library</OutputType>
+		<LangVersion>12</LangVersion>
 	</PropertyGroup>
 </Project>

@@ -1,35 +1,33 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Rebus.Activation;
 using Rebus.Config;
 using Rebus.Logging;
 using Rebus.Routing.TypeBased;
 // ReSharper disable ArgumentsStyleNamedExpression
 
-namespace Client
+namespace Client;
+
+class Program
 {
-    class Program
+    static async Task Main()
     {
-        static void Main()
+        using var activator = new BuiltinHandlerActivator();
+
+        var bus = Configure.With(activator)
+            .Logging(l => l.ColoredConsole(minLevel: LogLevel.Warn))
+            .Transport(t => t.UseMsmq("client"))
+            .Routing(r => r.TypeBased().Map<string>("server"))
+            .Start();
+
+        while (true)
         {
-            using (var activator = new BuiltinHandlerActivator())
-            {
-                var bus = Configure.With(activator)
-                    .Logging(l => l.ColoredConsole(minLevel: LogLevel.Warn))
-                    .Transport(t => t.UseMsmq("client"))
-                    .Routing(r => r.TypeBased().Map<string>("server"))
-                    .Start();
+            Console.Write("Type greeting > ");
+            var text = Console.ReadLine();
 
-                while (true)
-                {
-                    Console.Write("Type greeting > ");
-                    var text = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(text)) break;
 
-                    if (string.IsNullOrWhiteSpace(text)) break;
-
-                    bus.Send(text).Wait();
-                }
-            }
-
+            await bus.Send(text);
         }
     }
 }

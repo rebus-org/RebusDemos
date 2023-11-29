@@ -5,27 +5,25 @@ using Rebus.Logging;
 // ReSharper disable ArgumentsStyleNamedExpression
 #pragma warning disable 1998
 
-namespace Server
+namespace Server;
+
+class Program
 {
-    class Program
+    static void Main()
     {
-        static void Main()
+        using var activator = new BuiltinHandlerActivator();
+        
+        activator.Handle<string>(async str =>
         {
-            using (var activator = new BuiltinHandlerActivator())
-            {
-                activator.Handle<string>(async str =>
-                {
-                    Console.WriteLine($"Got greeting: {str}");
-                });
+            Console.WriteLine($"Got greeting: {str}");
+        });
 
-                Configure.With(activator)
-                    .Logging(l => l.ColoredConsole(minLevel: LogLevel.Warn))
-                    .Transport(t => t.UseMsmq("server"))
-                    .Start();
+        Configure.With(activator)
+            .Logging(l => l.ColoredConsole(minLevel: LogLevel.Warn))
+            .Transport(t => t.UseMsmq("server"))
+            .Start();
 
-                Console.WriteLine("Press ENTER to quit");
-                Console.ReadLine();
-            }
-        }
+        Console.WriteLine("Press ENTER to quit");
+        Console.ReadLine();
     }
 }

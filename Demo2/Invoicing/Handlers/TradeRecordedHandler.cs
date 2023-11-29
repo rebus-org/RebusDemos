@@ -3,13 +3,12 @@ using System.Threading.Tasks;
 using Rebus.Handlers;
 using Trading.Messages;
 
-namespace Invoicing.Handlers
+namespace Invoicing.Handlers;
+
+public class TradeRecordedHandler : IHandleMessages<TradeRecorded>
 {
-    public class TradeRecordedHandler : IHandleMessages<TradeRecorded>
+    public async Task Handle(TradeRecorded message)
     {
-        public async Task Handle(TradeRecorded message)
-        {
-            Console.WriteLine($@"Invoicing trade: {message.TradeId} ({message.Quantity} x {message.Commodity})");
-        }
+        Console.WriteLine($@"Invoicing trade: {message.TradeId} ({message.Quantity} x {message.Commodity})");
     }
 }

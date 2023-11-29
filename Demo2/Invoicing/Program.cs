@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Invoicing.Handlers;
 using Rebus.Activation;
 using Rebus.Config;
@@ -7,27 +8,25 @@ using Trading.Messages;
 // ReSharper disable ArgumentsStyleNamedExpression
 // ReSharper disable ArgumentsStyleLiteral
 
-namespace Invoicing
+namespace Invoicing;
+
+class Program
 {
-    class Program
+    static async Task Main()
     {
-        static void Main()
-        {
-            using (var activator = new BuiltinHandlerActivator())
-            {
-                activator.Register(() => new TradeRecordedHandler());
+        using var activator = new BuiltinHandlerActivator();
 
-                var bus = Configure.With(activator)
-                    .Logging(l => l.ColoredConsole(minLevel: LogLevel.Warn))
-                    .Subscriptions(s => s.StoreInSqlServer("server=.; database=RebusDemos; trusted_connection=true; encrypt=false", "Subscriptions", isCentralized: true))
-                    .Transport(t => t.UseMsmq("invoicing"))
-                    .Start();
+        activator.Register(() => new TradeRecordedHandler());
 
-                bus.Subscribe<TradeRecorded>().Wait();
+        var bus = Configure.With(activator)
+            .Logging(l => l.ColoredConsole(minLevel: LogLevel.Warn))
+            .Subscriptions(s => s.StoreInSqlServer("server=.; database=RebusDemos; trusted_connection=true; encrypt=false", "Subscriptions", isCentralized: true))
+            .Transport(t => t.UseMsmq("invoicing"))
+            .Start();
 
-                Console.WriteLine("Invoicing is running - press ENTER to quit");
-                Console.ReadLine();
-            }
-        }
+        await bus.Subscribe<TradeRecorded>();
+
+        Console.WriteLine("Invoicing is running - press ENTER to quit");
+        Console.ReadLine();
     }
 }
