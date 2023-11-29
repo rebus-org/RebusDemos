@@ -12,7 +12,7 @@ namespace Invoicing
 {
     class Program
     {
-        const string ConnectionString = "server=.; database=RebusDemos; trusted_connection=true";
+        const string ConnectionString = "server=.; database=RebusDemos; trusted_connection=true; encrypt=false";
 
         static void Main()
         {
