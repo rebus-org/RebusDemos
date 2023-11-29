@@ -22,7 +22,7 @@ namespace Confirmation
 
                 Configure.With(activator)
                     .Logging(l => l.ColoredConsole(minLevel: LogLevel.Warn))
-                    .Subscriptions(s => s.StoreInSqlServer("server=.; database=RebusDemos; trusted_connection=true", "Subscriptions", isCentralized: true))
+                    .Subscriptions(s => s.StoreInSqlServer("server=.; database=RebusDemos; trusted_connection=true; encrypt=false", "Subscriptions", isCentralized: true))
                     .Transport(t => t.UseMsmq("confirmation"))
                     .Start();
 

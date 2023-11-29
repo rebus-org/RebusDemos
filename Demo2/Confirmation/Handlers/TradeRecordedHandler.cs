@@ -6,7 +6,6 @@ using Confirmation.Messages;
 using Newtonsoft.Json;
 using Rebus.Bus;
 using Rebus.Handlers;
-using Rebus.Pipeline.Receive;
 using Trading.Messages;
 
 namespace Confirmation.Handlers

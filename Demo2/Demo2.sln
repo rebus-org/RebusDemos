@@ -1,9 +1,9 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2006
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trading", "Trading\Trading.csproj", "{61EC99E6-9CCD-4920-B1FE-1375C4A00CA6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trading", "Trading\Trading.csproj", "{61EC99E6-9CCD-4920-B1FE-1375C4A00CA6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 trading", "01 trading", "{9E6702A9-FB6F-474C-A2FA-E0F2D17AB68B}"
 EndProject
@@ -11,13 +11,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trading.Messages", "Trading
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03 invoicing", "03 invoicing", "{E9BBBE78-FFBC-4EC6-825C-C10242EAFA33}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Invoicing", "Invoicing\Invoicing.csproj", "{53D07001-D4C1-4781-825A-6C37DE80DF49}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Invoicing", "Invoicing\Invoicing.csproj", "{53D07001-D4C1-4781-825A-6C37DE80DF49}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02 confirmation", "02 confirmation", "{99FF1FAC-5AE2-4B37-827B-46726B70E20C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Confirmation", "Confirmation\Confirmation.csproj", "{8A8D3A4F-5C79-4A34-8B4F-4D9BF47910B9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Confirmation", "Confirmation\Confirmation.csproj", "{8A8D3A4F-5C79-4A34-8B4F-4D9BF47910B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Confirmation.Messages", "Confirmation.Messages\Confirmation.Messages.csproj", "{B2855900-9463-490D-B293-EB13FD7F4BF8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Confirmation.Messages", "Confirmation.Messages\Confirmation.Messages.csproj", "{B2855900-9463-490D-B293-EB13FD7F4BF8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "external api", "external api", "{7428D35C-2D56-4A1C-A8FD-724D6DFF8453}"
 EndProject
