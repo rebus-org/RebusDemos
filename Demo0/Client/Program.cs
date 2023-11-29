@@ -21,7 +21,7 @@ namespace Client
 
                 while (true)
                 {
-                    Console.Write("Type greeting >");
+                    Console.Write("Type greeting > ");
                     var text = Console.ReadLine();
 
                     if (string.IsNullOrWhiteSpace(text)) break;
